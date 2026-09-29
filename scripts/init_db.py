@@ -82,9 +82,11 @@ CREATE TABLE IF NOT EXISTS sessions (
 # CLIENTES E CONTAS
 # =========================
 
+nomes = ['João da Silva', 'Maria Oliveira', 'Carlos Santos', 'Ana Souza', 'Lucas Pereira', 'Juliana Costa', 'Rafael Almeida', 'Camila Rodrigues', 'Gabriel Ferreira', 'Larissa Martins', 'Bruno Gomes', 'Mariana Barbosa', 'Felipe Ribeiro', 'Beatriz Carvalho', 'Diego Lima', 'Fernanda Alves', 'Mateus Rocha', 'Patrícia Mendes', 'Gustavo Nunes', 'Isabela Castro', 'Eduardo Moreira', 'Carolina Dias', 'Thiago Teixeira', 'Renata Correia', 'Leonardo Cardoso', 'Bianca Araújo', 'Rodrigo Freitas', 'Vanessa Monteiro', 'Daniel Vieira', 'Letícia Ramos', 'André Moura', 'Priscila Campos', 'Marcelo Batista', 'Natália Pinto', 'Vinícius Farias', 'Débora Cunha', 'Henrique Duarte', 'Gabriela Moraes', 'Felipe Tavares', 'Manuela Reis', 'Alexandre Neves', 'Luana Borges', 'Ricardo Mendes', 'Jéssica Andrade', 'Pedro Henrique', 'Amanda Fernandes', 'Samuel Martins', 'Cláudia Lopes', 'Caio Barbosa', 'Elaine Teixeira']
+
 for i in range(1, 51):
 
-    name = f"Cliente {i:02d}"
+    name = nomes[i - 1]
     cpf = f"000000000{i:02d}"
     email = f"cliente{i:02d}@bancomaster.local"
     phone = f"2199999{i:04d}"
@@ -93,9 +95,14 @@ for i in range(1, 51):
 
     c.execute(
         """
-        INSERT OR IGNORE INTO clients
+        INSERT INTO clients
         (id, name, cpf, email, phone)
         VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            name = excluded.name,
+            cpf = excluded.cpf,
+            email = excluded.email,
+            phone = excluded.phone
         """,
         (i, name, cpf, email, phone)
     )

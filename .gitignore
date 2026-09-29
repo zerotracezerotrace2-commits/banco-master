@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+*.backup
+*.backup-*
+cookies.txt
+logs/
+banco.db
+.env
+
+pixcookies.txt

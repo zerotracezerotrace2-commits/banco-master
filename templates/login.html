@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Banco Master - Login</title><link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<div class="card">
+<h1>Banco Master</h1>
+<p>Acesse sua conta</p>
+{% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+<form method="post">
+<input name="username" placeholder="Usuário" required>
+<input name="password" type="password" placeholder="Senha" required>
+<button type="submit">Entrar</button>
+</form>
+</div>
+</body>
+</html>

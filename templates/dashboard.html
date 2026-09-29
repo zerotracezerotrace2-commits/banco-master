@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Banco Master</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="card">
+<h1>Banco Master</h1>
+<h2>Olá, {{ name }}</h2>
+<p>Agência: {{ agency }} | Conta: {{ account }}</p>
+<h2>Saldo: R$ {{ balance }}</h2>
+
+<hr>
+<h3>Enviar Pix</h3>
+<form method="post" action="/pix">
+<input name="destination" placeholder="Conta destino" required>
+<input name="amount" placeholder="Valor (ex: 100,00)" required>
+<input name="description" placeholder="Descrição">
+<button type="submit">Enviar Pix</button>
+</form>
+
+{% if erro %}
+<p class="erro">{{ erro }}</p>
+{% endif %}
+
+{% if sucesso %}
+<p class="sucesso">{{ sucesso }}</p>
+{% endif %}
+
+<hr>
+<h3>Extrato</h3>
+{% for t in transactions %}
+<p>{{ t["created_at"] }} — {{ t["type"] }} — R$ {{ t["amount"] }} — {{ t["description"] or "" }}</p>
+{% else %}
+<p>Nenhuma movimentação.</p>
+{% endfor %}
+
+<a href="/logout">Sair</a>
+</div>
+</body>
+</html>

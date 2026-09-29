@@ -1,44 +1,95 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Banco Master</title>
-<link rel="stylesheet" href="/static/css/style.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private • Banco Master</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+body{background:#f6f5f3;color:#111}
+.topbar{height:64px;background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:10}
+.topbar.logo{letter-spacing:.25em;font-size:12px;color:#c9a86a;font-weight:700}
+.topbar.user{display:flex;gap:12px;align-items:center}
+.topbar.avatar{width:36px;height:36px;border-radius:50%;background:#c9a86a;color:#000;display:flex;align-items:center;justify-content:center;font-weight:700}
+.wrap{max-width:1200px;margin:0 auto;padding:32px;display:grid;grid-template-columns:280px 1fr;gap:24px}
+.menu{background:#fff;border-radius:16px;padding:16px;border:1px solid #eee;height:fit-content}
+.menu a{display:flex;gap:12px;padding:12px 14px;border-radius:10px;color:#666;text-decoration:none;font-size:14px;font-weight:500}
+.menu a.active{background:#111;color:#fff}
+.menu a.active span{color:#c9a86a}
+.main{display:flex;flex-direction:column;gap:24px}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.card{background:#fff;border:1px solid #eee;border-radius:16px;padding:20px}
+.card.dark{background:#111;color:#fff;border-color:#111}
+.card.label{font-size:11px;letter-spacing:.15em;color:#888;text-transform:uppercase;margin-bottom:8px}
+.card.dark.label{color:#c9a86a}
+.card.value{font-size:28px;font-weight:700}
+.card.sub{font-size:12px;color:#888;margin-top:6px}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.action{background:#fff;border:1px solid #eee;border-radius:14px;padding:16px;text-align:center;cursor:pointer}
+.action:hover{border-color:#111}
+.action.ico{width:40px;height:40px;border-radius:10px;background:#111;color:#c9a86a;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-weight:700}
+.trans{background:#fff;border:1px solid #eee;border-radius:16px;padding:20px}
+.trans.row{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f2f2f2;font-size:14px}
+.trans.row:last-child{border:0}
+.badge{padding:4px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.badge.in{background:#e7f5e8;color:#1a7a2e}
+.badge.out{background:#fde8e8;color:#a11}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.actions{grid-template-columns:1fr 1fr}}
+</style>
 </head>
 <body>
+<div class="topbar">
+<div class="logo">BANCO MASTER PRIVATE</div>
+<div class="user">
+<span style="font-size:13px;color:#888">{{ session.username }} • AG {{ account.agency }} CC {{ account.account_number }}</span>
+<div class="avatar">{{ session.username[0]|upper }}</div>
+<a href="/logout" style="color:#666;text-decoration:none;font-size:13px;margin-left:12px">Sair</a>
+</div>
+</div>
+<div class="wrap">
+<div class="menu">
+<a class="active" href="#"><span>◼</span> Visão geral</a>
+<a href="#"><span>⇄</span> PIX & Transferências</a>
+<a href="#"><span>▭</span> Cartões</a>
+<a href="#"><span>◍</span> Investimentos</a>
+<a href="#"><span>⚙</span> Configurações</a>
+</div>
+<div class="main">
+<div class="grid">
+<div class="card dark">
+<div class="label">Saldo disponível</div>
+<div class="value">R$ {{ "%.2f"|format(account.balance_cents/100) }}</div>
+<div class="sub">Conta {{ account.account_number }} • Limite Black ativo</div>
+</div>
 <div class="card">
-<h1>Banco Master</h1>
-<h2>Olá, {{ name }}</h2>
-<p>Agência: {{ agency }} | Conta: {{ account }}</p>
-<h2>Saldo: R$ {{ balance }}</h2>
-
-<hr>
-<h3>Enviar Pix</h3>
-<form method="post" action="/pix">
-<input name="destination" placeholder="Conta destino" required>
-<input name="amount" placeholder="Valor (ex: 100,00)" required>
-<input name="description" placeholder="Descrição">
-<button type="submit">Enviar Pix</button>
-</form>
-
-{% if erro %}
-<p class="erro">{{ erro }}</p>
-{% endif %}
-
-{% if sucesso %}
-<p class="sucesso">{{ sucesso }}</p>
-{% endif %}
-
-<hr>
-<h3>Extrato</h3>
+<div class="label">Entrada mês</div>
+<div class="value" style="color:#1a7a2e">+ R$ 12.430,00</div>
+<div class="sub">↑ 18% vs mês anterior</div>
+</div>
+<div class="card">
+<div class="label">Cartão Black</div>
+<div class="value">R$ 8.200</div>
+<div class="sub">Fatura atual • fecha dia 15</div>
+</div>
+</div>
+<div class="actions">
+<div class="action"><div class="ico">↗</div><div style="font-size:13px;font-weight:600">Fazer PIX</div></div>
+<div class="action"><div class="ico">$</div><div style="font-size:13px;font-weight:600">Pagar</div></div>
+<div class="action"><div class="ico">⊕</div><div style="font-size:13px;font-weight:600">Depositar</div></div>
+<div class="action"><div class="ico">◫</div><div style="font-size:13px;font-weight:600">Extrato</div></div>
+</div>
+<div class="trans">
+<div style="display:flex;justify-content:space-between;margin-bottom:12px"><b>Transações recentes</b><span style="font-size:12px;color:#888">Últimos 7 dias</span></div>
 {% for t in transactions %}
-<p>{{ t["created_at"] }} — {{ t["type"] }} — R$ {{ t["amount"] }} — {{ t["description"] or "" }}</p>
+<div class="row">
+<div><b>{{ t.description or t.type }}</b><div style="color:#888;font-size:12px">{{ t.created_at }}</div></div>
+<div style="text-align:right"><div style="font-weight:600">R$ {{ "%.2f"|format(t.amount_cents/100) }}</div><span class="badge {{ 'in' if t.type=='credit' else 'out' }}">{{ t.type }}</span></div>
+</div>
 {% else %}
-<p>Nenhuma movimentação.</p>
+<div class="row"><div>Sem movimentações</div><div style="color:#888">Sua conta Private está pronta para operar</div></div>
 {% endfor %}
-
-<a href="/logout">Sair</a>
+</div>
+</div>
 </div>
 </body>
 </html>

